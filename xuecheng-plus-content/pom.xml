@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.xuecheng</groupId>
+        <artifactId>xuecheng-plus-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../xuecheng-plus-parent</relativePath>
+    </parent>
+    <groupId>com.xuecheng</groupId>
+    <artifactId>xuecheng-plus-content</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>xuecheng-plus-content</name>
+    <description>xuecheng-plus-content</description>
+    <packaging>pom</packaging>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <modules>
+        <module>xuecheng-plus-content-api</module>
+        <module>xuecheng-plus-content-model</module>
+        <module>xuecheng-plus-content-service</module>
+    </modules>
+
+</project>
