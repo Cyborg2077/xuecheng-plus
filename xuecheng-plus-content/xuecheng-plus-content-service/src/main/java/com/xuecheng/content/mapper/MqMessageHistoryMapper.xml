@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuecheng.content.mapper.MqMessageHistoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xuecheng.content.model.po.MqMessageHistory">
+        <id column="id" property="id" />
+        <result column="message_type" property="messageType" />
+        <result column="business_key1" property="businessKey1" />
+        <result column="business_key2" property="businessKey2" />
+        <result column="business_key3" property="businessKey3" />
+        <result column="execute_num" property="executeNum" />
+        <result column="state" property="state" />
+        <result column="returnfailure_date" property="returnfailureDate" />
+        <result column="returnsuccess_date" property="returnsuccessDate" />
+        <result column="returnfailure_msg" property="returnfailureMsg" />
+        <result column="execute_date" property="executeDate" />
+        <result column="stage_state1" property="stageState1" />
+        <result column="stage_state2" property="stageState2" />
+        <result column="stage_state3" property="stageState3" />
+        <result column="stage_state4" property="stageState4" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, message_type, business_key1, business_key2, business_key3, execute_num, state, returnfailure_date, returnsuccess_date, returnfailure_msg, execute_date, stage_state1, stage_state2, stage_state3, stage_state4
+    </sql>
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuecheng.content.mapper.CoursePublishPreMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xuecheng.content.model.po.CoursePublishPre">
+        <id column="id" property="id" />
+        <result column="company_id" property="companyId" />
+        <result column="company_name" property="companyName" />
+        <result column="name" property="name" />
+        <result column="users" property="users" />
+        <result column="tags" property="tags" />
+        <result column="username" property="username" />
+        <result column="mt" property="mt" />
+        <result column="mt_name" property="mtName" />
+        <result column="st" property="st" />
+        <result column="st_name" property="stName" />
+        <result column="grade" property="grade" />
+        <result column="teachmode" property="teachmode" />
+        <result column="pic" property="pic" />
+        <result column="description" property="description" />
+        <result column="market" property="market" />
+        <result column="teachplan" property="teachplan" />
+        <result column="teachers" property="teachers" />
+        <result column="create_date" property="createDate" />
+        <result column="audit_date" property="auditDate" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+        <result column="charge" property="charge" />
+        <result column="price" property="price" />
+        <result column="original_price" property="originalPrice" />
+        <result column="valid_days" property="validDays" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, company_id, company_name, name, users, tags, username, mt, mt_name, st, st_name, grade, teachmode, pic, description, market, teachplan, teachers, create_date, audit_date, status, remark, charge, price, original_price, valid_days
+    </sql>
+
+</mapper>
