@@ -13,6 +13,34 @@
         <result column="is_leaf" property="isLeaf" />
     </resultMap>
 
+    <!-- 课程分类树型结构查询映射结果 -->
+    <resultMap id="treeNodeResultMap" type="com.xuecheng.content.model.dto.CourseCategoryTreeDto">
+        <!-- 一级数据映射 -->
+        <id     column="one_id"        property="id" />
+        <result column="one_name"      property="name" />
+        <result column="one_label"     property="label" />
+        <result column="one_parentid"  property="parentid" />
+        <result column="one_orderby"   property="orderby" />
+        <!-- 一级中包含多个二级数据：二级的集合数据 -->
+        <collection property="childrenTreeNodes" ofType="com.xuecheng.content.model.dto.CourseCategoryTreeDto">
+            <!-- 二级数据映射 -->
+            <id     column="two_id"        property="id" />
+            <result column="two_name"      property="name" />
+            <result column="two_label"     property="label" />
+            <result column="two_parentid"  property="parentid" />
+            <result column="two_orderby"   property="orderby" />
+        </collection>
+    </resultMap>
+
+    <select id="selectTreeNodes" parameterType="string" resultType="com.xuecheng.content.model.dto.CourseCategoryTreeDto">
+        WITH RECURSIVE t1 AS (
+            SELECT p.* FROM course_category p WHERE p.id = #{id}
+            UNION ALL
+            SELECT c.* FROM course_category c JOIN t1 WHERE c.parentid = t1.id
+        )
+        SELECT * FROM t1;
+    </select>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, name, label, parentid, is_show, orderby, is_leaf
