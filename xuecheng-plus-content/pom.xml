@@ -14,6 +14,13 @@
     <name>xuecheng-plus-content</name>
     <description>xuecheng-plus-content</description>
     <packaging>pom</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.xuecheng</groupId>
+            <artifactId>xuecheng-plus-base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     <properties>
         <java.version>1.8</java.version>
     </properties>
