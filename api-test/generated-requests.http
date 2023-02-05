@@ -19,7 +19,7 @@ Content-Type: application/json
 {
   "mt": "1-1",
   "st": "1-1-1",
-  "name": "123",
+  "name": "",
   "pic": "",
   "teachmode": "200002",
   "users": "初级人员",
@@ -33,4 +33,46 @@ Content-Type: application/json
   "wechat": "123654",
   "phone": "156213",
   "validDays": 365
+}
+
+### 根据课程id查询课程基本信息
+GET {{content_host}}/content/course/22
+Content-Type: application/json
+
+### 修改课程
+PUT {{content_host}}/content/course/
+Content-Type: application/json
+
+{
+  "id":1,
+  "companyId":22,
+  "companyName":null,
+  "name":"JAVA8/9/10新特性讲解",
+  "users":"java爱好者,有一定java基础",
+  "tags":"有个java 版本变化的新内容，帮助大家使用最新的思想和工具",
+  "mt":"1",
+  "st":"1-3-2",
+  "grade":"204002",
+  "teachmode":"200002",
+  "description":null,
+  "pic":"https://cdn.educba.com/academy/wp-content/uploads/2018/08/Spring-BOOT-Interview-questions.jpg",
+  "createDate":"2019-09-03 17:48:19",
+  "changeDate":"2022-09-17 16:47:29",
+  "createPeople":"1",
+  "changePeople":null,
+  "auditStatus":"202004",
+  "status":"203001",
+  "charge":"201001",
+  "price":2,
+  "originalPrice":11,
+  "qq":"1",
+  "wechat":"1",
+  "phone":"1",
+  "validDays":1,
+  "mtName":"根结点",
+  "stName":"Java",
+  "uiCategoryTreeSelected":[
+    "1",
+    "1-3-2"
+  ]
 }
