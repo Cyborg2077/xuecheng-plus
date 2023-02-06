@@ -76,3 +76,7 @@ Content-Type: application/json
     "1-3-2"
   ]
 }
+
+### 根据课程id查询课程计划
+GET {{content_host}}/content/teachplan/22/tree-nodes
+Content-Type: application/json

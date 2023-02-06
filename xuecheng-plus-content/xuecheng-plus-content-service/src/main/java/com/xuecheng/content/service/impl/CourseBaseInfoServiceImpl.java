@@ -42,7 +42,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         // 构建条件查询器
         LambdaQueryWrapper<CourseBase> queryWrapper = new LambdaQueryWrapper<>();
         // 构建查询条件：按照课程名称模糊查询
-        queryWrapper.like(StringUtils.isNotEmpty(queryCourseParams.getCourseName()), CourseBase::getCompanyName, queryCourseParams.getCourseName());
+        queryWrapper.like(StringUtils.isNotEmpty(queryCourseParams.getCourseName()), CourseBase::getName, queryCourseParams.getCourseName());
         // 构建查询条件，按照课程审核状态查询
         queryWrapper.eq(StringUtils.isNotEmpty(queryCourseParams.getAuditStatus()), CourseBase::getAuditStatus, queryCourseParams.getAuditStatus());
         // 构建查询条件，按照课程发布状态查询
