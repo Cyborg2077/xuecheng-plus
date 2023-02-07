@@ -32,25 +32,28 @@ public class TeachplanServiceImpl implements TeachplanService {
 
     @Transactional
     @Override
-    public void saveTeachplan(Teachplan teachplanDto) {
-        Long id = teachplanDto.getId();
-        //修改课程计划
-        if (id != null) {
-            Teachplan teachplan = teachplanMapper.selectById(id);
-            BeanUtils.copyProperties(teachplanDto, teachplan);
-            teachplanMapper.updateById(teachplan);
+    public void saveTeachplan(Teachplan teachplan) {
+        Long teachplanId = teachplan.getId();
+        if (teachplanId == null) {
+            // 课程计划id为null，创建对象，拷贝属性，设置创建时间和排序号
+            Teachplan plan = new Teachplan();
+            BeanUtils.copyProperties(teachplan, plan);
+            plan.setCreateDate(LocalDateTime.now());
+            // 设置排序号
+            plan.setOrderby(getTeachplanCount(plan.getCourseId(), plan.getParentid()) + 1);
+            // 如果新增失败，返回0，抛异常
+            int flag = teachplanMapper.insert(plan);
+            if (flag <= 0) XueChengPlusException.cast("新增失败");
         } else {
-            //取出同父同级别的课程计划数量
-            int count = getTeachplanCount(teachplanDto.getCourseId(),
-                    teachplanDto.getParentid());
-            Teachplan teachplanNew = new Teachplan();
-            //设置排序号
-            teachplanNew.setOrderby(count + 1);
-            BeanUtils.copyProperties(teachplanDto, teachplanNew);
-            teachplanMapper.insert(teachplanNew);
+            // 课程计划id不为null，查询课程，拷贝属性，设置更新时间，执行更新
+            Teachplan plan = teachplanMapper.selectById(teachplanId);
+            BeanUtils.copyProperties(teachplan, plan);
+            plan.setChangeDate(LocalDateTime.now());
+            // 如果修改失败，返回0，抛异常
+            int flag = teachplanMapper.updateById(plan);
+            if (flag <= 0) XueChengPlusException.cast("修改失败");
         }
     }
-
     @Transactional
     @Override
     public void deleteTeachplan(Long teachplanId) {
