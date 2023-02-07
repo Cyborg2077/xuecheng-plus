@@ -60,7 +60,7 @@
             </association>
         </collection>
     </resultMap>
-    <select id="selectTreeNodes" resultMap="treeNodeResultMap">
+    <select id="selectTreeNodes" resultMap="treeNodeResultMap" parameterType="long">
         SELECT p.id              p_id,
                p.pname           p_pname,
                p.parentid        p_parentid,
@@ -85,8 +85,8 @@
                tm.id             teachplanMeidaId,
                tm.media_id       mediaId
         FROM teachplan p
-                 LEFT JOIN teachplan c ON c.parentid = p.id
-                 LEFT JOIN teachplan_media tm ON tm.teachplan_id = c.course_id
+                 INNER JOIN teachplan c ON c.parentid = p.id
+                 LEFT JOIN teachplan_media tm ON tm.teachplan_id = c.id
         WHERE p.parentid = '0' AND p.course_id = #{value}
         ORDER BY p.orderby, c.orderby
     </select>
