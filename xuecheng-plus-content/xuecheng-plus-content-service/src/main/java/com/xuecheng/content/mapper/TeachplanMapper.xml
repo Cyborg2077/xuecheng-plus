@@ -31,10 +31,10 @@
         <!-- 一级数据映射 -->
         <id column="p_id" property="id"></id>
         <result column="p_pname" property="pname"></result>
-        <result column="p_parentid" property="pname"></result>
+        <result column="p_parentid" property="parentid"></result>
         <result column="p_grade" property="grade"></result>
         <result column="p_mediaType" property="mediaType"></result>
-        <result column="p_stratTime" property="startTime"/>
+        <result column="p_startTime" property="startTime"/>
         <result column="p_endTime" property="endTime"></result>
         <result column="p_orderby" property="orderby"></result>
         <result column="p_courseId" property="courseId"></result>
@@ -44,10 +44,10 @@
             <!--二级数据映射-->
             <id column="c_id" property="id"></id>
             <result column="c_pname" property="pname"></result>
-            <result column="c_parentid" property="pname"></result>
+            <result column="c_parentid" property="parentid"></result>
             <result column="c_grade" property="grade"></result>
             <result column="c_mediaType" property="mediaType"></result>
-            <result column="c_stratTime" property="startTime"/>
+            <result column="c_startTime" property="startTime"/>
             <result column="c_endTime" property="endTime"></result>
             <result column="c_orderby" property="orderby"></result>
             <result column="c_courseId" property="courseId"></result>
@@ -85,9 +85,10 @@
                tm.id             teachplanMeidaId,
                tm.media_id       mediaId
         FROM teachplan p
-                 INNER JOIN teachplan c ON c.parentid = p.id
+                 LEFT JOIN teachplan c ON c.parentid = p.id
                  LEFT JOIN teachplan_media tm ON tm.teachplan_id = c.course_id
-        WHERE p.parentid = '0'
+        WHERE p.parentid = '0' AND p.course_id = #{value}
+        ORDER BY p.orderby, c.orderby
     </select>
 
 </mapper>
