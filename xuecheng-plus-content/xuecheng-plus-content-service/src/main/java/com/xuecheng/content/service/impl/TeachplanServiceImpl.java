@@ -32,29 +32,26 @@ public class TeachplanServiceImpl implements TeachplanService {
 
     @Transactional
     @Override
-    public void saveTeachplan(Teachplan teachplan) {
-        Long teachplanId = teachplan.getId();
-        if (teachplanId == null) {
-            // 课程计划id为null，创建对象，拷贝属性，设置创建时间和排序号
-            Teachplan plan = new Teachplan();
-            BeanUtils.copyProperties(teachplan, plan);
-            plan.setCreateDate(LocalDateTime.now());
-            // 设置排序号
-            plan.setOrderby(getTeachplanCount(plan.getCourseId(), plan.getParentid()) + 1);
-            // 如果新增失败，返回0，抛异常
-            int flag = teachplanMapper.insert(plan);
-            if (flag <= 0) XueChengPlusException.cast("修改失败");
+    public void saveTeachplan(Teachplan teachplanDto) {
+        Long id = teachplanDto.getId();
+        //修改课程计划
+        if (id != null) {
+            Teachplan teachplan = teachplanMapper.selectById(id);
+            BeanUtils.copyProperties(teachplanDto, teachplan);
+            teachplanMapper.updateById(teachplan);
         } else {
-            // 课程计划id不为null，查询课程，拷贝属性，设置更新时间，执行更新
-            Teachplan plan = teachplanMapper.selectById(teachplanId);
-            BeanUtils.copyProperties(teachplan, plan);
-            plan.setChangeDate(LocalDateTime.now());
-            // 如果新增失败，返回0，抛异常
-            int flag = teachplanMapper.updateById(plan);
-            if (flag <= 0) XueChengPlusException.cast("修改失败");
+            //取出同父同级别的课程计划数量
+            int count = getTeachplanCount(teachplanDto.getCourseId(),
+                    teachplanDto.getParentid());
+            Teachplan teachplanNew = new Teachplan();
+            //设置排序号
+            teachplanNew.setOrderby(count + 1);
+            BeanUtils.copyProperties(teachplanDto, teachplanNew);
+            teachplanMapper.insert(teachplanNew);
         }
     }
 
+    @Transactional
     @Override
     public void deleteTeachplan(Long teachplanId) {
         if (teachplanId == null)
@@ -82,6 +79,86 @@ public class TeachplanServiceImpl implements TeachplanService {
             // 删除媒资信息中对应teachplanId的数据
             queryWrapper.eq(TeachplanMedia::getTeachplanId, teachplanId);
             teachplanMediaMapper.delete(queryWrapper);
+        }
+    }
+
+    @Transactional
+    @Override
+    public void orderByTeachplan(String moveType, Long teachplanId) {
+        Teachplan teachplan = teachplanMapper.selectById(teachplanId);
+        // 获取层级和当前orderby，章节移动和小节移动的处理方式不同
+        Integer grade = teachplan.getGrade();
+        Integer orderby = teachplan.getOrderby();
+        // 章节移动是比较同一课程id下的orderby
+        Long courseId = teachplan.getCourseId();
+        // 小节移动是比较同一章节id下的orderby
+        Long parentid = teachplan.getParentid();
+        if ("moveup".equals(moveType)) {
+            if (grade == 1) {
+                // 章节上移，找到上一个章节的orderby，然后与其交换orderby
+                // SELECT * FROM teachplan WHERE courseId = 117 AND grade = 1  AND orderby < 1 ORDER BY orderby DESC limit 1
+                LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(Teachplan::getGrade, 1)
+                        .eq(Teachplan::getCourseId, courseId)
+                        .lt(Teachplan::getOrderby, orderby)
+                        .orderByDesc(Teachplan::getOrderby)
+                        .last("limit 1");
+                Teachplan tmp = teachplanMapper.selectOne(queryWrapper);
+                exchangeOrderby(teachplan, tmp);
+            } else if (grade == 2) {
+                // 小节上移
+                // SELECT * FROM teachplan WHERE parentId = 268 AND orderby < 5 ORDER BY orderby DESC LIMIT 1
+                LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(Teachplan::getParentid, parentid)
+                        .lt(Teachplan::getOrderby, orderby)
+                        .orderByDesc(Teachplan::getOrderby)
+                        .last("LIMIT 1");
+                Teachplan tmp = teachplanMapper.selectOne(queryWrapper);
+                exchangeOrderby(teachplan, tmp);
+            }
+
+        } else if ("movedown".equals(moveType)) {
+            if (grade == 1) {
+                // 章节下移
+                // SELECT * FROM teachplan WHERE courseId = 117 AND grade = 1 AND orderby > 1 ORDER BY orderby ASC LIMIT 1
+                LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(Teachplan::getCourseId, courseId)
+                        .eq(Teachplan::getGrade, grade)
+                        .gt(Teachplan::getOrderby, orderby)
+                        .orderByAsc(Teachplan::getOrderby)
+                        .last("LIMIT 1");
+                Teachplan tmp = teachplanMapper.selectOne(queryWrapper);
+                exchangeOrderby(teachplan, tmp);
+            } else if (grade == 2) {
+                // 小节下移
+                // SELECT * FROM teachplan WHERE parentId = 268 AND orderby > 1 ORDER BY orderby ASC LIMIT 1
+                LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(Teachplan::getParentid, parentid)
+                        .gt(Teachplan::getOrderby, orderby)
+                        .orderByAsc(Teachplan::getOrderby)
+                        .last("LIMIT 1");
+                Teachplan tmp = teachplanMapper.selectOne(queryWrapper);
+                exchangeOrderby(teachplan, tmp);
+            }
+        }
+    }
+
+    /**
+     * 交换两个Teachplan的orderby
+     * @param teachplan teachplan1
+     * @param tmp teachplan2
+     */
+    private void exchangeOrderby(Teachplan teachplan, Teachplan tmp) {
+        if (tmp == null)
+            XueChengPlusException.cast("已经到头啦，不能再移啦");
+        else {
+            // 交换orderby，更新
+            Integer orderby = teachplan.getOrderby();
+            Integer tmpOrderby = tmp.getOrderby();
+            teachplan.setOrderby(tmpOrderby);
+            tmp.setOrderby(orderby);
+            teachplanMapper.updateById(tmp);
+            teachplanMapper.updateById(teachplan);
         }
     }
 
