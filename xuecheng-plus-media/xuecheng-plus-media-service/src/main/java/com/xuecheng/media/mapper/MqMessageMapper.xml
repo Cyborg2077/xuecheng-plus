@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuecheng.media.mapper.MqMessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xuecheng.media.model.po.MqMessage">
+        <id column="id" property="id" />
+        <result column="message_type" property="messageType" />
+        <result column="business_key1" property="businessKey1" />
+        <result column="business_key2" property="businessKey2" />
+        <result column="business_key3" property="businessKey3" />
+        <result column="mq_host" property="mqHost" />
+        <result column="mq_port" property="mqPort" />
+        <result column="mq_virtualhost" property="mqVirtualhost" />
+        <result column="mq_queue" property="mqQueue" />
+        <result column="inform_num" property="informNum" />
+        <result column="state" property="state" />
+        <result column="returnfailure_date" property="returnfailureDate" />
+        <result column="returnsuccess_date" property="returnsuccessDate" />
+        <result column="returnfailure_msg" property="returnfailureMsg" />
+        <result column="inform_date" property="informDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, message_type, business_key1, business_key2, business_key3, mq_host, mq_port, mq_virtualhost, mq_queue, inform_num, state, returnfailure_date, returnsuccess_date, returnfailure_msg, inform_date
+    </sql>
+
+</mapper>
