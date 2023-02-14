@@ -1,7 +1,7 @@
-#微服务配置
+#?????
 spring:
   application:
-    name: content-api
+    name: gateway
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848
@@ -13,17 +13,9 @@ spring:
         group: xuecheng-plus-project
         file-extension: yaml
         refresh-enabled: true
-        extension-configs:
-          - data-id: content-service-${spring.profiles.active}.yaml
-            group: xuecheng-plus-project
-            refresh: true
         shared-configs:
-          - data-id: swagger-${spring.profiles.active}.yaml
-            group: xuecheng-plus-common
-            refresh: true
           - data-id: logging-${spring.profiles.active}.yaml
             group: xuecheng-plus-common
             refresh: true
-  #profiles默认为dev
   profiles:
     active: dev
