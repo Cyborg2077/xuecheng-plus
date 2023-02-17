@@ -1,14 +1,10 @@
 package com.xuecheng.media.model.dto;
 
-import com.xuecheng.media.model.po.MediaFiles;
 import lombok.Data;
 import lombok.ToString;
 
 /**
  * @description 上传普通文件请求参数
- * @author Mr.M
- * @date 2022/9/12 18:49
- * @version 1.0
  */
  @Data
  @ToString
@@ -25,7 +21,7 @@ public class UploadFileParamsDto {
  private String contentType;
 
  /**
-  * 文件类型（文档，音频，视频）
+  * 文件类型（文档，图片，视频）
   */
  private String fileType;
  /**
@@ -47,7 +43,4 @@ public class UploadFileParamsDto {
   * 备注
   */
  private String remark;
-
-
-
 }

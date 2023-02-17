@@ -1,91 +1,72 @@
 package com.xuecheng.media;
 
-import io.minio.*;
+import io.minio.GetObjectArgs;
+import io.minio.MinioClient;
+import io.minio.RemoveObjectArgs;
+import io.minio.UploadObjectArgs;
+import io.minio.errors.*;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FilterInputStream;
+import java.io.*;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
-/**
- * @author Mr.M
- * @version 1.0
- * @description 测试minio上传文件、删除文件、查询文件
- * @date 2022/10/13 14:42
- */
+@SpringBootTest
 public class MinIOTest {
-
+    // 创建MinioClient对象
     static MinioClient minioClient =
             MinioClient.builder()
-                    .endpoint("http://192.168.101.65:9000")
+                    .endpoint("http://127.0.0.1:9000")
                     .credentials("minioadmin", "minioadmin")
                     .build();
 
-
+    /**
+     * 上传测试方法
+     */
     @Test
-    public void upload() {
-
+    public void uploadTest() {
         try {
-            UploadObjectArgs uploadObjectArgs = UploadObjectArgs.builder()
-                    .bucket("testbucket")
-                    .object("1.mp4")//同一个桶内对象名不能重复
-                    .filename("D:\\develop\\upload\\1.mp4")
-                    .build();
-            //上传
-            minioClient.uploadObject(uploadObjectArgs);
-            System.out.println("上传成功了");
+            minioClient.uploadObject(
+                    UploadObjectArgs.builder()
+                            .bucket("testbucket")
+                            .object("pic01.png")
+                            .filename("C:\\Users\\15863\\Desktop\\Picture\\background\\01.png")
+                            .build()
+            );
+            System.out.println("上传成功");
         } catch (Exception e) {
             System.out.println("上传失败");
         }
-
-
     }
-    //指定桶内的子目录
-    @Test
-    public void upload2() {
 
+    @Test
+    public void deleteTest() {
         try {
-            UploadObjectArgs uploadObjectArgs = UploadObjectArgs.builder()
+            minioClient.removeObject(RemoveObjectArgs
+                    .builder()
                     .bucket("testbucket")
-                    .object("test/1.avi")//同一个桶内对象名不能重复
-                    .filename("D:\\develop\\upload\\1.avi")
-                    .build();
-            //上传
-            minioClient.uploadObject(uploadObjectArgs);
-            System.out.println("上传成功了");
+                    .object("pic01.png")
+                    .build());
+            System.out.println("删除成功");
         } catch (Exception e) {
-            System.out.println("上传失败");
+            System.out.println("删除失败");
         }
-
-
     }
-    //删除文件
-    @Test
-    public void delete() {
 
+    @Test
+    public void getFileTest() {
         try {
-            RemoveObjectArgs removeObjectArgs = RemoveObjectArgs.builder().bucket("testbucket").object("test/1.avi").build();
-            minioClient.removeObject(removeObjectArgs);
+            FilterInputStream inputStream = minioClient.getObject(GetObjectArgs.builder()
+                    .bucket("testbucket")
+                    .object("pic01.png")
+                    .build());
+            FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\15863\\Desktop\\tmp.png");
+            IOUtils.copy(inputStream,fileOutputStream);
+            System.out.println("下载成功");
         } catch (Exception e) {
+            System.out.println("下载失败");
         }
-
     }
-    //查询文件
-    @Test
-    public void getFile() {
-        GetObjectArgs getObjectArgs = GetObjectArgs.builder().bucket("testbucket").object("1.mp4").build();
-        try(
-                FilterInputStream inputStream = minioClient.getObject(getObjectArgs);
-                FileOutputStream outputStream = new FileOutputStream(new File("D:\\develop\\upload\\1_1.mp4"));
-                ) {
-
-            if(inputStream!=null){
-                IOUtils.copy(inputStream,outputStream);
-            }
-        } catch (Exception e) {
-        }
-
-    }
-
 }

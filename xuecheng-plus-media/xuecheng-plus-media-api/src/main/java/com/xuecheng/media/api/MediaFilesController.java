@@ -10,12 +10,14 @@ import com.xuecheng.media.model.po.MediaFiles;
 import com.xuecheng.media.service.MediaFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.security.SecureRandom;
 
 /**
  * @author Mr.M
@@ -40,32 +42,30 @@ public class MediaFilesController {
 
     }
 
-    @RequestMapping(value = "/upload/coursefile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public UploadFileResultDto upload(@RequestPart("filedata") MultipartFile filedata,
-                                      @RequestParam(value = "folder",required=false) String folder,
-                                      @RequestParam(value= "objectName",required=false) String objectName) {
-
-        Long companyId = 1232141425L;
+    @ApiOperation("上传文件")
+    @RequestMapping(value = "/upload/coursefile",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public UploadFileResultDto upload(@RequestPart("filedata") MultipartFile upload,
+                                      @RequestParam(value = "folder", required = false) String folder,
+                                      @RequestParam(value = "objectName", required = false) String objectName) {
         UploadFileParamsDto uploadFileParamsDto = new UploadFileParamsDto();
-        String contentType = filedata.getContentType();
-        uploadFileParamsDto.setContentType(contentType);
-        uploadFileParamsDto.setFileSize(filedata.getSize());//文件大小
-        if (contentType.indexOf("image") >= 0) {
-            //是个图片
+        uploadFileParamsDto.setFileSize(upload.getSize());
+        String contentType = upload.getContentType();
+        if (contentType.contains("image")) {
             uploadFileParamsDto.setFileType("001001");
         } else {
             uploadFileParamsDto.setFileType("001003");
         }
-        uploadFileParamsDto.setFilename(filedata.getOriginalFilename());//文件名称
-        UploadFileResultDto uploadFileResultDto = null;
+        uploadFileParamsDto.setRemark("");
+        uploadFileParamsDto.setFilename(upload.getOriginalFilename());
+        uploadFileParamsDto.setContentType(contentType);
+        Long companyId = 1232141425L;
         try {
-            uploadFileResultDto = mediaFileService.uploadFile(companyId, uploadFileParamsDto, filedata.getBytes(), folder, objectName);
-        } catch (Exception e) {
-            XueChengPlusException.cast("上传文件过程中出错");
+            UploadFileResultDto uploadFileResultDto = mediaFileService.uploadFile(companyId, uploadFileParamsDto, upload.getBytes(), folder, objectName);
+            return uploadFileResultDto;
+        } catch (IOException e) {
+            XueChengPlusException.cast("上传文件过程出错");
         }
-
-        return uploadFileResultDto;
-
+        return null;
     }
 
 }
