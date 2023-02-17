@@ -10,14 +10,12 @@ import com.xuecheng.media.model.po.MediaFiles;
 import com.xuecheng.media.service.MediaFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.SecureRandom;
 
 /**
  * @author Mr.M
@@ -38,7 +36,7 @@ public class MediaFilesController {
     @PostMapping("/files")
     public PageResult<MediaFiles> list(PageParams pageParams, @RequestBody QueryMediaParamsDto queryMediaParamsDto) {
         Long companyId = 1232141425L;
-        return mediaFileService.queryMediaFiels(companyId, pageParams, queryMediaParamsDto);
+        return mediaFileService.queryMediaFiles(companyId, pageParams, queryMediaParamsDto);
 
     }
 
