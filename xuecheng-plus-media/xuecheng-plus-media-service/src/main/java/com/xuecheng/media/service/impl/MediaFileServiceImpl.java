@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.*;
 import java.security.InvalidKeyException;
@@ -117,7 +118,10 @@ public class MediaFileServiceImpl implements MediaFileService {
             mediaFiles.setCreateDate(LocalDateTime.now());
             mediaFiles.setStatus("1");
             mediaFiles.setFilePath(objectName);
-            mediaFiles.setUrl("/" + bucket + "/" + objectName);
+            String contentType = getContentType(uploadFileParamsDto.getFilename());
+            if (contentType.contains("image") || contentType.contains("mp4")) {
+                mediaFiles.setUrl("/" + bucket + "/" + objectName);
+            }
             // 查阅数据字典，002003表示审核通过
             mediaFiles.setAuditStatus("002003");
         }
@@ -273,10 +277,20 @@ public class MediaFileServiceImpl implements MediaFileService {
         }
     }
 
+    @Override
+    public MediaFiles getFileById(String id) {
+        MediaFiles mediaFiles = mediaFilesMapper.selectById(id);
+        if (mediaFiles == null || StringUtils.isEmpty(mediaFiles.getUrl())) {
+            XueChengPlusException.cast("视频还没有转码处理");
+        }
+        return mediaFiles;
+    }
+
     /**
      * 根据MD5和文件扩展名，生成文件路径，例 /2/f/2f6451sdg/2f6451sdg.mp4
-     * @param fileMd5       文件MD5
-     * @param extension     文件扩展名
+     *
+     * @param fileMd5   文件MD5
+     * @param extension 文件扩展名
      * @return
      */
     private String getFilePathByMd5(String fileMd5, String extension) {
@@ -454,6 +468,5 @@ public class MediaFileServiceImpl implements MediaFileService {
         // 构建结果集
         PageResult<MediaFiles> mediaListResult = new PageResult<>(list, total, pageParams.getPageNo(), pageParams.getPageSize());
         return mediaListResult;
-
     }
 }
