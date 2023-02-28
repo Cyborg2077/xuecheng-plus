@@ -90,3 +90,6 @@ Content-Disposition: form-data; name="filedata"; filename="test01.jpg"
 Content-Type: application/octet-stream
 
 < C:\Users\15863\Desktop\Picture\photo\4203315123.jpg
+
+### 解绑课程计划和媒资信息
+DELETE {{gateway_host}}/content/teachplan/association/media/315/a92da96ebcf28dfe194a1e2c393dd860

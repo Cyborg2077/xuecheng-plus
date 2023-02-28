@@ -57,6 +57,9 @@
                 <result column="teachplanMeidaId" property="id"></result>
                 <result column="mediaFilename" property="mediaFilename"></result>
                 <result column="mediaId" property="mediaId"></result>
+                <result column="c_id" property="teachplanId" />
+                <result column="c_courseId" property="courseId" />
+                <result column="c_coursePubId" property="coursePubId" />
             </association>
         </collection>
     </resultMap>
