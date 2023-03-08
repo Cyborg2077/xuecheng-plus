@@ -9,15 +9,13 @@ spring:
         group: xuecheng-plus-project
         file-extension: yaml
         refresh-enabled: true
-
+        shared-configs:
+          - data-id: feign-${spring.profiles.active}.yaml
+            group: xuecheng-plus-common
+            refresh: true
   #profiles默认为dev
   profiles:
     active: dev
 
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/xc_content?serverTimezone=UTC&userUnicode=true&useSSL=false
-#    username: root
-#    password: A10ne,tillde@th.
 logging:
   config: classpath:log4j2-dev.xml

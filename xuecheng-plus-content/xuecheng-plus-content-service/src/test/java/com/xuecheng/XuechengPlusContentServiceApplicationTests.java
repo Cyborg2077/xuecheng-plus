@@ -1,6 +1,5 @@
 package com.xuecheng;
 
-import com.xuecheng.base.exception.XueChengPlusException;
 import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
 import com.xuecheng.content.mapper.CourseBaseMapper;
@@ -20,6 +19,7 @@ import java.util.List;
 @Slf4j
 @SpringBootTest(classes = XuechengPlusContentServiceApplication.class)
 class XuechengPlusContentServiceApplicationTests {
+
     @Resource
     CourseBaseMapper courseBaseMapper;
 

@@ -1,0 +1,26 @@
+### 新增课程文档测试
+POST localhost:53080/search/index/course
+Content-Type: application/json
+
+{
+  "charge" : "201000",
+  "companyId" : 100000,
+  "companyName" : "测试CompanyName",
+  "createDate" : "2023-03-07 15:41:44",
+  "description" : "《测试测试测试测试》",
+  "grade" : "204001",
+  "id" : 103,
+  "mt" : "1-3",
+  "mtName" : "编程开发",
+  "name" : "Java编程思想",
+  "originalPrice" : 200.0,
+  "pic" : "/mediafiles/2022/09/20/1d0f0e6ed8a0c4a89bfd304b84599d9c.png",
+  "price" : 100.0,
+  "remark" : "没有备注",
+  "st" : "1-3-2",
+  "stName" : "Java语言",
+  "status" : "203002",
+  "tags" : "没有标签",
+  "teachmode" : "200002",
+  "validDays" : 222
+}

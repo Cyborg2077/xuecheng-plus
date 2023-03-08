@@ -16,6 +16,12 @@ public class CoursePublishController {
     @Autowired
     private CoursePublishService coursePublishService;
 
+    /**
+     * 课程预览
+     *
+     * @param courseId 课程id
+     * @return
+     */
     @GetMapping("/coursepreview/{courseId}")
     public ModelAndView preview(@PathVariable("courseId") Long courseId) {
         CoursePreviewDto coursePreviewInfo = coursePublishService.getCoursePreviewInfo(courseId);
@@ -25,9 +31,25 @@ public class CoursePublishController {
         return modelAndView;
     }
 
+    /**
+     * 提交课程审核
+     *
+     * @param courseId 课程id
+     */
     @PostMapping("/courseaudit/commit/{courseId}")
     public void commitAudit(@PathVariable Long courseId) {
         Long companyId = 1232141425L;
         coursePublishService.commitAudit(companyId, courseId);
+    }
+
+    /**
+     * 课程发布接口
+     *
+     * @param courseId 课程id
+     */
+    @PostMapping("/coursepublish/{courseId}")
+    public void coursePublish(@PathVariable Long courseId) {
+        Long companyId = 1232141425L;
+        coursePublishService.publishCourse(companyId, courseId);
     }
 }

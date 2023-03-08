@@ -95,7 +95,7 @@ public class MediaFileServiceImpl implements MediaFileService {
             return uploadFileResultDto;
         } catch (Exception e) {
             log.debug("上传过程中出错：{}", e.getMessage());
-            XueChengPlusException.cast("上传过程中出错");
+            XueChengPlusException.cast("上传过程中出错" + e.getMessage());
         }
         return null;
     }

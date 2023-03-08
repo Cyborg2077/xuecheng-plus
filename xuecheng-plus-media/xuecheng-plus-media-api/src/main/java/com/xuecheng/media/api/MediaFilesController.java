@@ -62,7 +62,7 @@ public class MediaFilesController {
             UploadFileResultDto uploadFileResultDto = mediaFileService.uploadFile(companyId, uploadFileParamsDto, upload.getBytes(), folder, objectName);
             return uploadFileResultDto;
         } catch (IOException e) {
-            XueChengPlusException.cast("上传文件过程出错");
+            XueChengPlusException.cast("上传文件过程出错:" + e.getMessage());
         }
         return null;
     }

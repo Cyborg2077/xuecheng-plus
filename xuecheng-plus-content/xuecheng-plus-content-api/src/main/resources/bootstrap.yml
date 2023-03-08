@@ -1,5 +1,7 @@
 #微服务配置
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: content-api
   cloud:
@@ -25,6 +27,9 @@ spring:
             group: xuecheng-plus-common
             refresh: true
           - data-id: freemarker-config-${spring.profiles.active}.yaml
+            group: xuecheng-plus-common
+            refresh: true
+          - data-id: feign-${spring.profiles.active}.yaml
             group: xuecheng-plus-common
             refresh: true
   #profiles默认为dev
