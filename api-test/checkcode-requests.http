@@ -1,0 +1,5 @@
+### 获取验证码图片
+POST localhost:53075/checkcode/pic
+
+### 校验验证码
+POST localhost:53075/checkcode/verify?key=checkcode:c3dce1413f95414e943dcf0a97983fe8&code=HZCG

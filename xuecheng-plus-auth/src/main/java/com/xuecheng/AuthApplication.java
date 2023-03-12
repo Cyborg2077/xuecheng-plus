@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+@EnableFeignClients
 @SpringBootApplication
 public class AuthApplication {
 

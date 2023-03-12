@@ -36,8 +36,8 @@ Content-Type: application/json
 }
 
 ### 根据课程id查询课程基本信息
-GET {{content_host}}/content/course/22
-Content-Type: application/json
+GET localhost:53040/content/course/40
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsieHVlY2hlbmctcGx1cyJdLCJ1c2VyX25hbWUiOiJ7XCJjb21wYW55SWRcIjpcIjEyMzIxNDE0MjVcIixcImNyZWF0ZVRpbWVcIjpcIjIwMjItMDktMjhUMDg6MzI6MDNcIixcImlkXCI6XCI1MlwiLFwibmFtZVwiOlwiS2lraVwiLFwic2V4XCI6XCIxXCIsXCJzdGF0dXNcIjpcIlwiLFwidXNlcm5hbWVcIjpcIkt5bGVcIixcInV0eXBlXCI6XCIxMDEwMDJcIn0iLCJzY29wZSI6WyJhbGwiXSwiZXhwIjoxNjc4NDU1NjgzLCJhdXRob3JpdGllcyI6WyJ0ZXN0Il0sImp0aSI6ImQyYzk4ZTA1LTMzZWUtNDdiYi04NWYyLThhMTM1MGVhMGQwNiIsImNsaWVudF9pZCI6IlhjV2ViQXBwIn0.ag7DNdXBmu1ekUWOZEaN0S-qq5MQcKKH1VXlkdhpMDw
 
 ### 修改课程
 PUT {{content_host}}/content/course/
@@ -80,6 +80,8 @@ Content-Type: application/json
 ### 根据课程id查询课程计划
 GET {{content_host}}/content/teachplan/22/tree-nodes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsieHVlY2hlbmctcGx1cyJdLCJ1c2VyX25hbWUiOiJLeWxlIiwic2NvcGUiOlsiYWxsIl0sImV4cCI6MTY3ODQzODcwMSwiYXV0aG9yaXRpZXMiOlsicDEiXSwianRpIjoiYTE1YzlkOTgtZWY5Yi00MTY2LTk2ODQtZWFhMDM2YjI0YzRhIiwiY2xpZW50X2lkIjoiWGNXZWJBcHAifQ.R8f6pqpxtmDXIdOnibajJreTT0vF6o8zVowSx-uxL0E
+
 
 ### 上传文件
 POST {{media_host}}/media/upload/coursefile
