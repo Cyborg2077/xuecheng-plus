@@ -17,7 +17,7 @@ public interface CourseBaseInfoService {
      * @param queryCourseParams 查询条件
      * @return
      */
-    PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamDto queryCourseParams);
+    PageResult<CourseBase> queryCourseBaseList(Long companyId,PageParams pageParams, QueryCourseParamDto queryCourseParams);
 
     /**
      * 新增课程基本信息

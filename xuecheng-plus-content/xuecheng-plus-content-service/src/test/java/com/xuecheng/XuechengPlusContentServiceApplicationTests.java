@@ -38,7 +38,7 @@ class XuechengPlusContentServiceApplicationTests {
 
     @Test
     void contextQueryCourseTest() {
-        PageResult<CourseBase> result = courseBaseInfoService.queryCourseBaseList(new PageParams(1L, 10L), new QueryCourseParamDto());
+        PageResult<CourseBase> result = courseBaseInfoService.queryCourseBaseList(null, new PageParams(1L, 10L), new QueryCourseParamDto());
         log.info("查询到数据：{}", result);
     }
     @Test

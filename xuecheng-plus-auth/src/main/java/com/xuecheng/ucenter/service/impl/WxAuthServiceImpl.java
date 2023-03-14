@@ -61,7 +61,6 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
      * 微信扫码认证，不需要校验密码和验证码
      *
      * @param authParamsDto 认证参数
-     * @return
      */
     @Override
     public XcUserExt execute(AuthParamsDto authParamsDto) {
