@@ -1,13 +1,17 @@
 package com.xuecheng.auth.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.xuecheng.ucenter.mapper.XcUserMapper;
+import com.xuecheng.ucenter.model.dto.FindPswDto;
 import com.xuecheng.ucenter.model.po.XcUser;
+import com.xuecheng.ucenter.service.VerifyService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Mr.M
@@ -21,6 +25,9 @@ public class LoginController {
 
     @Autowired
     XcUserMapper userMapper;
+
+    @Autowired
+    VerifyService verifyService;
 
 
     @RequestMapping("/login-success")
@@ -49,5 +56,27 @@ public class LoginController {
     }
 
 
-
+    @ApiOperation(value = "找回密码", tags = "找回密码")
+    @PostMapping("/findpassword")
+    public void findPassword(@RequestBody FindPswDto findPswDto) {
+        String email = findPswDto.getEmail();
+        String checkcode = findPswDto.getCheckcode();
+        Boolean verify = verifyService.verify(email, checkcode);
+        if (!verify) {
+            throw new RuntimeException("验证码输入错误");
+        }
+        String password = findPswDto.getPassword();
+        String confirmpwd = findPswDto.getConfirmpwd();
+        if (!password.equals(confirmpwd)) {
+            throw new RuntimeException("两次输入的密码不一致");
+        }
+        LambdaQueryWrapper<XcUser> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(XcUser::getEmail, findPswDto.getEmail());
+        XcUser user = userMapper.selectOne(lambdaQueryWrapper);
+        if (user == null) {
+            throw new RuntimeException("用户不存在");
+        }
+        user.setPassword(new BCryptPasswordEncoder().encode(password));
+        userMapper.updateById(user);
+    }
 }
