@@ -3,6 +3,7 @@ package com.xuecheng.auth.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.xuecheng.ucenter.mapper.XcUserMapper;
 import com.xuecheng.ucenter.model.dto.FindPswDto;
+import com.xuecheng.ucenter.model.dto.RegisterDto;
 import com.xuecheng.ucenter.model.po.XcUser;
 import com.xuecheng.ucenter.service.VerifyService;
 import io.swagger.annotations.Api;
@@ -59,24 +60,12 @@ public class LoginController {
     @ApiOperation(value = "找回密码", tags = "找回密码")
     @PostMapping("/findpassword")
     public void findPassword(@RequestBody FindPswDto findPswDto) {
-        String email = findPswDto.getEmail();
-        String checkcode = findPswDto.getCheckcode();
-        Boolean verify = verifyService.verify(email, checkcode);
-        if (!verify) {
-            throw new RuntimeException("验证码输入错误");
-        }
-        String password = findPswDto.getPassword();
-        String confirmpwd = findPswDto.getConfirmpwd();
-        if (!password.equals(confirmpwd)) {
-            throw new RuntimeException("两次输入的密码不一致");
-        }
-        LambdaQueryWrapper<XcUser> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(XcUser::getEmail, findPswDto.getEmail());
-        XcUser user = userMapper.selectOne(lambdaQueryWrapper);
-        if (user == null) {
-            throw new RuntimeException("用户不存在");
-        }
-        user.setPassword(new BCryptPasswordEncoder().encode(password));
-        userMapper.updateById(user);
+        verifyService.findPassword(findPswDto);
+    }
+
+    @ApiOperation(value = "注册", tags = "注册")
+    @PostMapping("/register")
+    public void register(@RequestBody RegisterDto registerDto) {
+        verifyService.register(registerDto);
     }
 }

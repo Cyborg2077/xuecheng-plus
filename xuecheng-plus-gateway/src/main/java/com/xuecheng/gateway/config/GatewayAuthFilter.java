@@ -40,7 +40,7 @@ public class GatewayAuthFilter implements GlobalFilter, Ordered {
     static {
         //加载白名单
         try (
-                InputStream resourceAsStream = GatewayAuthFilter.class.getResourceAsStream("/security-whitelist.properties");
+                InputStream resourceAsStream = GatewayAuthFilter.class.getResourceAsStream("/security-whitelist.properties")
         ) {
             Properties properties = new Properties();
             properties.load(resourceAsStream);

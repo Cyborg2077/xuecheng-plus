@@ -1,11 +1,10 @@
 package com.xuecheng.ucenter.service;
 
+import com.xuecheng.ucenter.model.dto.FindPswDto;
+import com.xuecheng.ucenter.model.dto.RegisterDto;
+
 public interface VerifyService {
-    /**
-     * 校验验证码是否正确
-     * @param email 邮箱
-     * @param checkcode  用户输入的验证码
-     * @return
-     */
-    Boolean verify(String email, String checkcode);
+    void findPassword(FindPswDto findPswDto);
+
+    void register(RegisterDto registerDto);
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuecheng.learning.mapper.XcCourseTablesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xuecheng.learning.model.po.XcCourseTables">
+        <id column="id" property="id" />
+        <result column="choose_course_id" property="chooseCourseId" />
+        <result column="user_id" property="userId" />
+        <result column="course_id" property="courseId" />
+        <result column="company_id" property="companyId" />
+        <result column="course_name" property="courseName" />
+        <result column="create_date" property="createDate" />
+        <result column="validtime_end" property="validtimeEnd" />
+        <result column="update_date" property="updateDate" />
+        <result column="remarks" property="remarks" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, choose_course_id, user_id, course_id, company_id, course_name, create_date, validtime_end, update_date, remarks
+    </sql>
+
+</mapper>

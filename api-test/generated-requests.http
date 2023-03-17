@@ -1,5 +1,5 @@
 ### 课程查询列表
-POST {{gateway_host}}/content/course/list?pageNo=1&pageSize=2
+POST {{content_host}}/content/course/list?pageNo=1&pageSize=2
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### 课程分类查询
-GET {{content_host}}/content//course-category/tree-nodes?id=1
+GET {{gateway_host}}/content/course-category/tree-nodes?id=1
 Content-Type: application/json
 
 ### 新增课程
@@ -95,3 +95,7 @@ Content-Type: application/octet-stream
 
 ### 解绑课程计划和媒资信息
 DELETE {{gateway_host}}/content/teachplan/association/media/315/a92da96ebcf28dfe194a1e2c393dd860
+
+### 查询课程发布信息
+GET {{content_host}}/content/r/coursepublish/160
+Content-Type: application/json

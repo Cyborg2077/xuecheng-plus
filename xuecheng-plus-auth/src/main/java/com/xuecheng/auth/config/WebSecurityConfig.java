@@ -48,8 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/r/**")
-                .authenticated()//访问/r开始的请求需要认证通过
+//                .antMatchers("/r/**")
+//                .authenticated()//访问/r开始的请求需要认证通过
                 .anyRequest().permitAll()//其它请求全部放行
                 .and()
                 .formLogin()
