@@ -24,4 +24,6 @@ public interface MyCourseTablesService {
     XcChooseCourse addFreeCourse(String userId, CoursePublish coursePublish);
 
     XcChooseCourse addChargeCourse(String userId, CoursePublish coursePublish);
+
+    boolean saveChooseCourseStatus(String chooseCourseId);
 }

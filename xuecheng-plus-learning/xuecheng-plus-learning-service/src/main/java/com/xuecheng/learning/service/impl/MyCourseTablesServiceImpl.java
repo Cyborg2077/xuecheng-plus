@@ -180,6 +180,28 @@ public class MyCourseTablesServiceImpl implements MyCourseTablesService {
         return chooseCourse;
     }
 
+    @Override
+    @Transactional
+    public boolean saveChooseCourseStatus(String chooseCourseId) {
+        // 1. 根据选课id，查询选课表
+        XcChooseCourse chooseCourse = chooseCourseMapper.selectById(chooseCourseId);
+        if (chooseCourse == null) {
+            log.error("接收到购买课程的消息，根据选课id未查询到课程，选课id：{}", chooseCourseId);
+            return false;
+        }
+        // 2. 选课状态为未支付时，更新选课状态为选课成功
+        if ("701002".equals(chooseCourse.getStatus())) {
+            chooseCourse.setStatus("701001");
+            int update = chooseCourseMapper.updateById(chooseCourse);
+            if (update <= 0) {
+                log.error("更新选课记录失败：{}", chooseCourse);
+            }
+        }
+        // 3. 向我的课程表添加记录
+        addCourseTables(chooseCourse);
+        return true;
+    }
+
     /**
      * 将免费课程加入到选课表
      *

@@ -72,7 +72,7 @@ public class OrderController {
         //获得初始化的AlipayClient
         AlipayTradeWapPayRequest alipayRequest = new AlipayTradeWapPayRequest();//创建API对应的request
 //        alipayRequest.setReturnUrl("http://domain.com/CallBack/return_url.jsp");
-        alipayRequest.setNotifyUrl("http://66vyk5.natappfree.cc/orders/paynotify");//在公共参数中设置回跳和通知地址
+        alipayRequest.setNotifyUrl("http://aixm99.natappfree.cc/orders/paynotify");//在公共参数中设置回跳和通知地址
         alipayRequest.setBizContent("{" +
                 "    \"out_trade_no\":\"" + payRecord.getPayNo() + "\"," +
                 "    \"total_amount\":" + payRecord.getTotalPrice() + "," +
