@@ -58,9 +58,9 @@
         </div>
         <div class="banner-rit">
             <p>
-                <a href="http://localhost/course/preview/learning.html?id=${model.courseBase.id}" target="_blank">
+                <a href="http://www.localhost/course/preview/learning.html?id=${model.courseBase.id}" target="_blank">
                     <#if model.courseBase.pic??>
-                        <img src="http://file.xuecheng-plus.com${model.courseBase.pic}" alt="" width="270" height="156">
+                        <img src="http://file.localhost${model.courseBase.pic}" alt="" width="270" height="156">
                     <#else>
                         <img src="/static/img/widget-video.png" alt="" width="270" height="156">
                     </#if>
@@ -87,7 +87,7 @@
             </ul>
         </div>-->
     </div>
-    <div class="article-box">f
+    <div class="article-box">
         <div class="articleClass" style="display: block">
             <!--<div class="rit-title">评价</div>-->
             <div class="article-cont">
@@ -180,7 +180,7 @@
                                 <div class="drop-down" style="height: 260px;">
                                     <ul class="list-box">
                                         <#list firstNode.teachPlanTreeNodes as secondNode>
-                                            <li><a href="http://localhost/course/preview/learning.html?id=${model.courseBase.id}&chapter=${secondNode.teachplanMedia.teachplanId!''}" target="_blank">${secondNode.pname}</a></li>
+                                            <li><a href="http://www.localhost/course/preview/learning.html?id=${model.courseBase.id}&chapter=${secondNode.teachplanMedia.teachplanId!''}" target="_blank">${secondNode.pname}</a></li>
                                         </#list>
                                     </ul>
                                 </div>
@@ -624,7 +624,7 @@
                 </div>
             </div>
             <div class="fact-pic">实际支付: <span>￥${model.courseBase.price!''}元</span></div>
-            <div class="go-pay"><a href="#" @click.prevent="wxPay()">微信支付</a><a href="#" @click.prevent="aliPay()">支付宝支付</a><a href="#" @click.prevent="startLearngin()">试学</a></div>
+            <div class="go-pay"><a href="#" @click.prevent="wxPay()">微信支付</a><a href="#" @click.prevent="aliPay()">支付宝支付</a><a href="#" @click.prevent="querypayresult()">支付完成</a><a href="#" @click.prevent="startLearngin()">试学</a></div>
         </div>
         <!--支付弹窗- end -->
         <div class="popup-comment-box">

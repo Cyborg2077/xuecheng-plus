@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuecheng.orders.mapper.XcPayRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xuecheng.orders.model.po.XcPayRecord">
+        <id column="id" property="id" />
+        <result column="pay_no" property="payNo" />
+        <result column="out_pay_no" property="outPayNo" />
+        <result column="out_pay_channel" property="outPayChannel" />
+        <result column="order_id" property="orderId" />
+        <result column="order_name" property="orderName" />
+        <result column="total_price" property="totalPrice" />
+        <result column="currency" property="currency" />
+        <result column="create_date" property="createDate" />
+        <result column="status" property="status" />
+        <result column="pay_success_time" property="paySuccessTime" />
+        <result column="user_id" property="userId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, pay_no, out_pay_no, out_pay_channel, order_id,order_name, total_price, currency, create_date, status, pay_success_time, user_id
+    </sql>
+
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuecheng.orders.mapper.XcOrdersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xuecheng.orders.model.po.XcOrders">
+        <id column="id" property="id" />
+        <result column="total_price" property="totalPrice" />
+        <result column="create_date" property="createDate" />
+        <result column="status" property="status" />
+        <result column="user_id" property="userId" />
+        <result column="company_id" property="companyId" />
+        <result column="order_type" property="orderType" />
+        <result column="order_descrip" property="orderDescrip" />
+        <result column="order_detail" property="orderDetail" />
+        <result column="out_order_id" property="outOrderId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, total_price, create_date, status, user_id, company_id, order_type, order_descrip, order_detail, out_order_id
+    </sql>
+
+</mapper>
