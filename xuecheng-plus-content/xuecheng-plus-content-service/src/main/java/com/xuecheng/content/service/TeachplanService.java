@@ -15,6 +15,8 @@ public interface TeachplanService {
 
     void orderByTeachplan(String moveType, Long teachplanId);
 
+    Teachplan getTeachplan(Long teachplanId);
+
     /**
      * 教学计划绑定媒资信息
      *

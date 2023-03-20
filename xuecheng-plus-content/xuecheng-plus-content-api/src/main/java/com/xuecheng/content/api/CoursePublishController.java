@@ -1,18 +1,24 @@
 package com.xuecheng.content.api;
 
+import com.alibaba.fastjson.JSON;
+import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.CoursePreviewDto;
+import com.xuecheng.content.model.dto.TeachplanDto;
 import com.xuecheng.content.model.po.CoursePublish;
 import com.xuecheng.content.service.CoursePublishService;
 import com.xuecheng.content.util.SecurityUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -69,5 +75,11 @@ public class CoursePublishController {
     @GetMapping("/r/coursepublish/{courseId}")
     public CoursePublish getCoursePublish(@PathVariable("courseId") Long courseId) {
         return coursePublishService.getCoursePublish(courseId);
+    }
+
+    @ApiOperation("获取课程发布信息")
+    @GetMapping("/course/whole/{courseId}")
+    public CoursePreviewDto getCoursePreviewDto(@PathVariable("courseId") Long courseId) {
+        return coursePublishService.getCoursePreviewInfo(courseId);
     }
 }

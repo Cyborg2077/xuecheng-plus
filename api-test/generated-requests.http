@@ -99,3 +99,7 @@ DELETE {{gateway_host}}/content/teachplan/association/media/315/a92da96ebcf28dfe
 ### 查询课程发布信息
 GET {{content_host}}/content/r/coursepublish/160
 Content-Type: application/json
+
+### 查询课程计划
+POST localhost:53040/content/teachplan/344
+Content-Type: application/json

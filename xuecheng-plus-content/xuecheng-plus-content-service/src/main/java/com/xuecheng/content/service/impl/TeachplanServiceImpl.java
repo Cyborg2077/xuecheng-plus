@@ -148,6 +148,11 @@ public class TeachplanServiceImpl implements TeachplanService {
         }
     }
 
+    @Override
+    public Teachplan getTeachplan(Long teachplanId) {
+        return teachplanMapper.selectById(teachplanId);
+    }
+
     @Transactional
     @Override
     public void associationMedia(BindTeachplanMediaDto bindTeachplanMediaDto) {

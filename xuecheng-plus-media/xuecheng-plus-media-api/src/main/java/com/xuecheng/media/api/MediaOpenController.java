@@ -4,6 +4,7 @@ import com.xuecheng.base.exception.XueChengPlusException;
 import com.xuecheng.base.model.RestResponse;
 import com.xuecheng.media.model.po.MediaFiles;
 import com.xuecheng.media.service.MediaFileService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,5 @@ public class MediaOpenController {
         }
         return RestResponse.success(mediaFile.getUrl());
     }
+
 }
