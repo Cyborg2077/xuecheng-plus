@@ -1,0 +1,61 @@
+singleServerConfig:
+  #如果当前连接池里的连接数量超过了最小空闲连接数，而同时有连接空闲时间超过了该数值，
+  #那么这些连接将会自动被关闭，并从连接池里去掉。时间单位是毫秒。
+  #默认值：10000
+  idleConnectionTimeout: 10000
+  pingTimeout: 1000
+  #同任何节点建立连接时的等待超时。时间单位是毫秒。
+  #默认值：10000
+  connectTimeout: 10000
+  #等待节点回复命令的时间。该时间从命令发送成功时开始计时。
+  #默认值：3000
+  timeout: 3000
+  #如果尝试达到 retryAttempts（命令失败重试次数）
+  #仍然不能将命令发送至某个指定的节点时，将抛出错误。如果尝试在此限制之内发送成功，
+  #则开始启用 timeout（命令等待超时） 计时。
+  #默认值：3
+  retryAttempts: 3
+  #在某个节点执行相同或不同命令时，连续失败failedAttempts（执行失败最大次数）时，
+  #该节点将被从可用节点列表里清除，直到 reconnectionTimeout（重新连接时间间隔） 超时以后再次尝试。
+  #默认值：1500
+  retryInterval: 1500
+  #重新连接时间间隔
+  reconnectionTimeout: 3000
+  #执行失败最大次数
+  failedAttempts: 3
+  #密码
+  password:
+  #数据库选择 select 4
+  database: 0
+  #每个连接的最大订阅数量。
+  #默认值：5
+  subscriptionsPerConnection: 5
+  #在Redis节点里显示的客户端名称。
+  clientName: null
+  #在Redis节点
+  address: "redis://192.168.101.128:6379"
+  #从节点发布和订阅连接的最小空闲连接数
+  #默认值：1
+  subscriptionConnectionMinimumIdleSize: 1
+  #用于发布和订阅连接的连接池最大容量。连接池的连接数量自动弹性伸缩。
+  #默认值：50
+  subscriptionConnectionPoolSize: 50
+  #节点最小空闲连接数
+  #默认值：32
+  connectionMinimumIdleSize: 32
+  #节点连接池大小
+  #默认值：64
+  connectionPoolSize: 64
+#这个线程池数量被所有RTopic对象监听器，RRemoteService调用者和RExecutorService任务共同共享。
+#默认值: 当前处理核数量 * 2
+threads: 8
+#这个线程池数量是在一个Redisson实例内，被其创建的所有分布式数据类型和服务，
+#以及底层客户端所一同共享的线程池里保存的线程数量。
+#默认值: 当前处理核数量 * 2
+nettyThreads: 8
+#Redisson的对象编码类是用于将对象进行序列化和反序列化，以实现对该对象在Redis里的读取和存储。
+#默认值: org.redisson.codec.JsonJacksonCodec
+codec: !<org.redisson.codec.JsonJacksonCodec> {}
+#传输模式
+#默认值：TransportMode.NIO
+transportMode: "NIO"

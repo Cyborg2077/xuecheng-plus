@@ -74,7 +74,7 @@ public class CoursePublishController {
     @ApiOperation("查询课程发布信息")
     @GetMapping("/r/coursepublish/{courseId}")
     public CoursePublish getCoursePublish(@PathVariable("courseId") Long courseId) {
-        return coursePublishService.getCoursePublish(courseId);
+        return coursePublishService.getCoursePublishCache(courseId);
     }
 
     @ApiOperation("获取课程发布信息")
