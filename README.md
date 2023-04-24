@@ -2,6 +2,9 @@
 - 技术栈：Nginx、SpringBoot、Spring Cloud、Spring Security、MinIO、MyBatis-Plus、MQ、Redis、Elasticsearch
 - 共分为七个模块
 
+## 前端资源：
+网盘链接：https://pan.baidu.com/s/1XSdezXLuC3UdaxAqjjJ2wg?pwd=2077 提取码：2077
+
 ## 项目基础环境搭建：
 - 对应的文章地址：https://cyborg2077.github.io/2023/01/29/XuechengOnlinePart1/
 ## 内容管理模块（含实战内容）
